@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Image Upload</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Image Upload</h1>
+        <div class="form-group">
+          <label for="imageUpload">Choose an image to upload:</label>
+          <input type="file" class="form-control-file" id="imageUpload"><br>
+          <label >Choose number of colors:</label><br>
+          <input type="range" id="k" name="k" min="3" max="5">Current Value:
+          <span id="curr"></span>
+        </div>
+        <button onclick="fun()" type="submit" class="btn btn-primary">Upload</button>
+        <button type="reset" class="btn btn-secondary">Clear</button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+      var el = document.getElementById('curr');
+        var r = document.getElementById('k');
+        el.innerText = r.valueAsNumber;
+        r.addEventListener('change', () => {
+            el.innerText = r.valueAsNumber;
+        })
+    </script>
+    <script>
+        function fun(){
+          var formdata = new FormData();
+        formdata.append("image", document.getElementById('imageUpload').Value);
+        formdata.append("k", document.getElementById('k').Value);
+
+        var requestOptions = {
+          method: 'POST',
+          body: formdata,
+          redirect: 'follow'
+        };
+
+        fetch("http://127.0.0.1:5000", requestOptions)
+          .then(response => response.text())
+          .then(result => {console.log(result)})
+          .catch(error => console.log('error', error));
+        }
+      </script>
+      
+  </body>
+</html>
