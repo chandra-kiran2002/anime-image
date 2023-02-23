@@ -48,7 +48,7 @@
           crossDomain: true
         };
 
-        fetch("https://anime-back.onrender.com/", requestOptions)
+        fetch("http://127.0.0.1:5000", requestOptions)
           .then(response => response.text())
           .then(result => {
             document.getElementById("final").innerHTML = result})
